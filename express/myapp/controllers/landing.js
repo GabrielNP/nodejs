@@ -4,7 +4,7 @@ exports.get_landing = function(req, res, next) {
   res.render('landing', { title: 'Express' });
 }
 
-exports.submit_lead = function(req, res, next) {    
+exports.submit_lead = function(req, res, next) { console.log("submit lead")
   return models.Lead.create({
     email: req.body.lead_email
   }).then(lead => {
@@ -14,14 +14,14 @@ exports.submit_lead = function(req, res, next) {
 
 exports.show_leads = function(req, res, next) { console.log("show_leads")
   return models.Lead.findAll().then(leads => {
-    res.render('landing',{ title: 'Express', leads: leads });
+    res.render('lead/leads',{ title: 'Express', leads: leads });
   })  
 }
 
 exports.show_lead = function(req, res, next) {
   return models.Lead.findOne({ where: { id: req.params.lead_id } })
         .then(lead => {
-            res.render('lead', { lead: lead })
+            res.render('lead/lead', { lead: lead })
   })  
 }
 
@@ -47,7 +47,7 @@ exports.delete_lead = function(req, res, next) {
       id: req.params.lead_id
     }
   }).then(result => {
-    res.redirect('/leads');
+    res.redirect('lead/leads');
   })  
 }
 
